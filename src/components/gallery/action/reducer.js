@@ -4,14 +4,7 @@ export const reducer = (state = initialState, action) => {
 	const data = action.payload;
 	switch (action.type) {
 		case 'ADD_IMG':
-			// const url = data && URL?.createObjectURL(data);
-			console.log(data);
 			const lastId = state.images[state.images.length - 1]?.id + 1 || 1;
-			// const newData = {
-			// 	id: lastId,
-			// 	url,
-			// 	selected: false,
-			// };
 
 			const newImages = Array.from(data).map((image, i) => {
 				const imageUrl = URL.createObjectURL(image);
@@ -55,6 +48,13 @@ export const reducer = (state = initialState, action) => {
 							...e,
 						};
 				}),
+			};
+
+		case 'DND':
+			return {
+				...state,
+				selected: [],
+				images: action.payload,
 			};
 		default:
 			return state;

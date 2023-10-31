@@ -1,11 +1,31 @@
 import style from '../gallery.module.css';
 
-function Img({ data, state, dispatch }) {
+export default function Img({
+	data,
+	state,
+	dispatch,
+	i,
+	handleDragOver,
+	handleDragStart,
+	handleDrop,
+	setTargetIndex,
+}) {
 	// console.log(state.selected);
 
 	return (
 		<div
-			className={`${style.image} shadow ${!data.selected && style.selected}`}
+			draggable
+			// onDragStart={(e) => handleDragStart(e, i)}
+			// onDragOver={handleDragOver}
+			// onDrop={(e) => handleDrop(e, i)}
+
+			onDragStart={(e) => handleDragStart(e, i)}
+			onDragOver={(e) => handleDragOver(e, i)}
+			onDrop={handleDrop}
+			onDragEnd={() => setTargetIndex(null)}
+			className={`${style.image} shadow ${
+				data.selected ? style.selected : style.notSelected
+			}`}
 		>
 			<input
 				onChange={(e) =>
@@ -20,11 +40,10 @@ function Img({ data, state, dispatch }) {
 				type="checkbox"
 				name=""
 				id=""
+				checked={data.selected}
 				className={style.checkboxSelect}
 			/>
-			<img src={data.url} />
+			<img src={data.url} alt={`Image ${data.id}`} />
 		</div>
 	);
 }
-
-export default Img;
