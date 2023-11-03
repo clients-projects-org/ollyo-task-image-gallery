@@ -1,11 +1,17 @@
 import { Suspense, lazy } from 'react';
 import { GalleryLoader } from './components/loader';
-const Gallery = lazy(() => import('./components/gallery/Gallery'));
+import Test from './components/f-test/App';
+import TestAnother from './components/left-tab/App';
+const Gallery = lazy(() => import('./components/gallery copy/Gallery'));
 
 export default function App() {
 	return (
-		<Suspense fallback={<GalleryLoader />}>
-			<Gallery />
-		</Suspense>
+		<div>
+			<Suspense fallback={<GalleryLoader />}>
+				{/* <Gallery /> */}
+				<Test />
+			</Suspense>
+			<TestAnother />
+		</div>
 	);
 }

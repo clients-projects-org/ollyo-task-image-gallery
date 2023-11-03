@@ -5,11 +5,16 @@ import Header from './own-components/Header';
 import Img from './own-components/Img';
 import dummyImage from '../../assets/images/dummy-image.png';
 import { reducer, initialState, useRaisedShadow } from './action';
-import { Reorder, useMotionValue } from 'framer-motion';
+import { Reorder, useDragControls, useMotionValue } from 'framer-motion';
 
 const Gallery = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
+	const dragControls = useDragControls();
 
+	function startDrag(event) {
+		console.log(event);
+		dragControls.start(event, { snapToCursor: true });
+	}
 	const ids = state.images.map((element) => {
 		return element.id;
 	});
@@ -24,12 +29,14 @@ const Gallery = () => {
 					<div className={style['images-grid']}>
 						{state.images.length > 0 ? (
 							<Reorder.Group
-								as="div"
+								as="ol"
+								onPointerDown={startDrag}
 								className={style.ul}
 								values={state.images}
-								onReorder={(reorderedImages) =>
-									dispatch({ type: 'DND', payload: reorderedImages })
-								}
+								onReorder={(reorderedImages) => {
+									console.log(reorderedImages);
+									dispatch({ type: 'DND', payload: reorderedImages });
+								}}
 							>
 								{state.images.map((image) => (
 									<Item
@@ -37,6 +44,7 @@ const Gallery = () => {
 										image={image}
 										state={state}
 										key={image.id}
+										dragControls={dragControls}
 									/>
 								))}
 								<AddImage state={state} dispatch={dispatch} />
@@ -58,7 +66,7 @@ const Gallery = () => {
 
 export default Gallery;
 
-const Item = ({ image, state, dispatch }) => {
+const Item = ({ image, state, dispatch, dragControls }) => {
 	const y = useMotionValue(0);
 
 	const boxShadow = useRaisedShadow(y);
@@ -67,9 +75,12 @@ const Item = ({ image, state, dispatch }) => {
 		<Reorder.Item
 			as="div"
 			className={style.li}
+			id={image}
+			draggable
 			drag
-			dragConstraints={{ top: 0, bottom: 0 }}
-			dragElastic={1}
+			dragConstraints={{ left: 0, right: 300 }}
+			dragElastic={1} // Adjust this value as needed
+			dragSnapToOrigin={1} // S
 			value={image}
 			style={{ boxShadow, y }}
 		>
