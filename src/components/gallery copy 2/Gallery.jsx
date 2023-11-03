@@ -10,11 +10,6 @@ import { Reorder, useMotionValue } from 'framer-motion';
 const Gallery = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
-	const ids = state.images.map((element) => {
-		return element.id;
-	});
-	console.log(ids);
-
 	return (
 		<div className={style['image-gallery-layout']}>
 			<div className={style['image-gallery-wrap']}>
@@ -42,13 +37,13 @@ const Gallery = () => {
 								<AddImage state={state} dispatch={dispatch} />
 							</Reorder.Group>
 						) : (
-							<div className="photo-up">
+							<div className={style.ul}>
 								<div className={`${style.image}`}>
 									<img src={dummyImage} alt="dummy-image" />
 								</div>
+								<AddImage state={state} dispatch={dispatch} />
 							</div>
 						)}
-						{/* <AddImage state={state} dispatch={dispatch} /> */}
 					</div>
 				</div>
 			</div>
