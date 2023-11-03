@@ -19,10 +19,24 @@ export default function Item({
 			ref={ref}
 			layout
 			initial={false}
-			className={style.item}
+			style={{
+				background: 'white',
+
+				borderRadius: 5,
+				zIndex: isDragging ? 3 : 1,
+
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+				textAlign: 'center',
+				fontSize: 24,
+			}}
+			_dragX={0}
+			_dragY={0}
 			drag={true}
 			onDragStart={() => setDragging(true)}
 			onDragEnd={() => setDragging(false)}
+			className={style.item}
 			// eslint-disable-next-line no-unused-vars
 			onViewportBoxUpdate={(viewportBox, _) => {
 				isDragging &&

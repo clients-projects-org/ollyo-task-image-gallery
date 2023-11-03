@@ -1,11 +1,13 @@
 import { clamp } from 'popmotion';
 
-const margin = 0.1;
+const margin = 0;
 
 export const findIndex = (i, currentBox, positions) => {
 	let target = i;
 	const { left, width, top, height } = positions[i];
-	const bottom = top + height;
+	let bottom = top + height;
+
+	console.log(bottom);
 
 	currentBox.x.center = (currentBox.x.min + currentBox.x.max) / 2;
 	currentBox.y.center = (currentBox.y.min + currentBox.y.max) / 2;

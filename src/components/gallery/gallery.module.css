@@ -22,7 +22,7 @@
 	position: relative;
 	overflow: hidden;
 	transition: 1s;
-	cursor: pointer;
+	cursor: grab;
 }
 .image.selected {
 	transition: 1s;
@@ -58,11 +58,6 @@
 	width: 100%;
 	height: 100%;
 	border-radius: 10px;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	aspect-ratio: 1 / 1;
-	user-select: none;
 }
 .images-grid .image img {
 	border-radius: 10px;
@@ -70,7 +65,7 @@
 	height: 100% !important;
 	object-fit: cover;
 	aspect-ratio: 1 / 1;
-	user-select: none;
+	/* user-select: none; */
 }
 
 .image-gallery-layout {
